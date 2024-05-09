@@ -22,9 +22,9 @@ public class WebClientConfig {
 	}
 	@Bean
 	public EmployeeClient employeeClient() {
-		HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
-				.builder(WebClientAdapter.forClient(employeeWebCLient())).build();
-		return httpServiceProxyFactory.createClient(EmployeeClient.class);
+		WebClientAdapter adapter = WebClientAdapter.create(employeeWebCLient());
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+		return factory.createClient(EmployeeClient.class);
 	}
 
 }
